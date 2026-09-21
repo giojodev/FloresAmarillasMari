@@ -122,6 +122,91 @@
         }
 
         body { cursor: crosshair; }
+
+        #ludoBubble {
+            position: absolute;
+            left: calc(100% - 140px);
+            top: 12%;
+            width: 84px;
+            height: 84px;
+            pointer-events: none;
+            z-index: 6;
+            filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
+            animation: ludoFloat 8s ease-in-out infinite;
+        }
+
+        .ludo-bubble img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            background: linear-gradient(135deg, #fff7ed, #fef3c7);
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+        }
+
+        @keyframes ludoFloat {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+            25% {
+                transform: translate3d(-16px, -18px, 0) scale(1.04);
+            }
+            50% {
+                transform: translate3d(18px, 10px, 0) scale(0.98);
+            }
+            75% {
+                transform: translate3d(-10px, 18px, 0) scale(1.05);
+            }
+            100% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+        }
+
+        #bubbleLayer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 15;
+        }
+
+        .memory-bubble {
+            position: absolute;
+            width: 92px;
+            height: 92px;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            transform: translate(-50%, 0) scale(0.7);
+            animation: bubbleFloat 4.5s ease-out forwards;
+            filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.18));
+            z-index: 20;
+        }
+
+        .memory-bubble img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            background: linear-gradient(135deg, #fff, #fef3c7);
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+        }
+
+        @keyframes bubbleFloat {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 36px) scale(0.72);
+            }
+            18% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -180px) scale(1.16);
+            }
+        }
     </style>
 </head>
 <body>
@@ -142,12 +227,17 @@
     </div>
 
     <canvas id="canvas"></canvas>
+    <div id="ludoBubble" class="ludo-bubble">
+        <img src="img/ludo.png" alt="Ludo flotando">
+    </div>
+    <div id="bubbleLayer"></div>
 
     <script>
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const quoteEl = document.getElementById('quote');
         const countEl = document.getElementById('flowerCount');
+        const bubbleLayer = document.getElementById('bubbleLayer');
 
         let width, height;
         let mouseX = 0, mouseY = 0;
@@ -155,6 +245,10 @@
         let particles = [];
         let stars = [];
         let time = 0;
+        let clickCount = 0;
+
+        const imageFiles = ['darkside.jpg', 'dinky.png', 'grogu.png', 'ludo.png', 'tie.png', 'vader.png'];
+        const bubbleTriggerEvery = 3;
 
         const quotes = [
             "Su merced es una excelente persona.",
@@ -378,6 +472,11 @@
             stars = Array.from({length: 100}, () => new Star());
         }
 
+        function randomImage() {
+            const file = imageFiles[Math.floor(Math.random() * imageFiles.length)];
+            return `img/${file}`;
+        }
+
         function spawnMemoryBubble(x, y) {
             const bubble = document.createElement('div');
             bubble.className = 'memory-bubble';
@@ -394,6 +493,7 @@
         }
 
         function plantFlower(x) {
+            clickCount += 1;
             flowers.push(new Flower(x));
             countEl.innerText = `Flores: ${flowers.length}`;
             
@@ -407,8 +507,8 @@
                 particles.push(new Sparkle(x, height - 100));
             }
 
-            if (flowers.length % 3 === 0) {
-                spawnMemoryBubble(x, height - 25);
+            if (clickCount % bubbleTriggerEvery === 0) {
+                spawnMemoryBubble(x, height - 40);
             }
         }
 
