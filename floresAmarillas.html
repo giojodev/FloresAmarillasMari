@@ -378,6 +378,21 @@
             stars = Array.from({length: 100}, () => new Star());
         }
 
+        function spawnMemoryBubble(x, y) {
+            const bubble = document.createElement('div');
+            bubble.className = 'memory-bubble';
+            bubble.style.left = x + 'px';
+            bubble.style.top = y + 'px';
+
+            const img = document.createElement('img');
+            img.src = randomImage();
+            img.alt = 'recuerdo floral';
+            bubble.appendChild(img);
+            bubbleLayer.appendChild(bubble);
+
+            setTimeout(() => bubble.remove(), 4600);
+        }
+
         function plantFlower(x) {
             flowers.push(new Flower(x));
             countEl.innerText = `Flores: ${flowers.length}`;
@@ -390,6 +405,10 @@
 
             for(let i=0; i<20; i++) {
                 particles.push(new Sparkle(x, height - 100));
+            }
+
+            if (flowers.length % 3 === 0) {
+                spawnMemoryBubble(x, height - 25);
             }
         }
 

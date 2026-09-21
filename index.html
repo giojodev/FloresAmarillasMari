@@ -153,18 +153,16 @@
     }
 
     .memory-bubble {
-      --dx: 0px;
-      --dy: 0px;
-      --rot: 0deg;
       position: absolute;
-      width: 90px;
-      height: 90px;
+      width: 92px;
+      height: 92px;
       left: 0;
       top: 0;
       opacity: 0;
-      transform: translate(-50%, 0) scale(0.7) rotate(0deg);
-      animation: bubbleFloat 5.5s ease-out forwards;
-      filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.16));
+      transform: translate(-50%, 0) scale(0.7);
+      animation: bubbleFloat 4.5s ease-out forwards;
+      filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.18));
+      z-index: 20;
     }
 
     .memory-bubble img {
@@ -180,14 +178,14 @@
     @keyframes bubbleFloat {
       0% {
         opacity: 0;
-        transform: translate(-50%, 0) scale(0.7) rotate(-8deg);
+        transform: translate(-50%, 36px) scale(0.72);
       }
-      12% {
+      18% {
         opacity: 1;
       }
       100% {
         opacity: 0;
-        transform: translate(calc(-50% + var(--dx)), calc(var(--dy) - 180px)) scale(1.15) rotate(var(--rot));
+        transform: translate(-50%, -180px) scale(1.16);
       }
     }
   </style>
@@ -231,52 +229,52 @@
     const bubbleTriggerEvery = 3;
 
     const quotes = [
-      'Su chat es de las mejores cosas que alegran el día.',
-      'Que estas flores iluminen su día joven.',
-      'Un detalle amarillo para un corazón de oro.',
-      'Cada clic es un pensamiento positivo para ti.',
-      'Usted hace que el mundo florezca.',
-      'Cuidaré este jardín tanto como nuestra amistad.',
-      'Brillas con luz propia.',
-      'Tu sonrisa es el sol de estas flores.',
-      'Eres magia en un mundo ordinario.',
-      'Florecer requiere tiempo, y usted es hermosa.',
-      'Gracias por ser usted, especial, atenta e inteligente.',
-      'Tu luz es capaz de iluminar el día más oscuro.',
-      'Hoy es un buen día para ser feliz.',
-      'Nunca dejes de brillar, el mundo te necesita.',
-      'Eres más fuerte de lo que crees.',
-      'La vida es mejor con personas como usted cerca.',
-      'Un pequeño detalle para un gran corazón.',
-      'Usted es pura inspiración.',
-      'Cada pétalo guarda un deseo para ti.',
-      'Donde pones el ojo, pones alegría.',
-      'Eres la razón de muchas sonrisas hoy.',
-      'Sigue creciendo, el cielo es el límite.',
-      'Tu energía es contagiosa y brillante.',
-      'Eres única, inteligente y atenta y eso es tu superpoder.',
-      'Que nunca te falten flores en el camino.',
-      'Eres paz en medio de cualquier tormenta.',
-      'Mereces todo lo bueno que te pase.',
-      'Gracias por existir y ser tan especial.',
-      'Tu amistad es un tesoro invaluable.',
-      'Eres el girasol más lindo de este jardín.',
-      'Que la felicidad te encuentre hoy y siempre.',
-      'Un jardín eterno para una persona inolvidable.',
-      'Que la música de hoy sea tu risa.',
-      'Brillas, Karina, con una fuerza que solo es reconocible en muy pocas personas.',
-      'Su gusto musical es increible y me gustaría seguir conociéndolo.',
-      'Es atenta con sus seres queridos y eso es un don que vino del cielo.',
-      'Dios se encargó de darle las mejores cualidades a las mejores personas y usted fue una de ellas.',
-      'Espero que no se moleste, pero pues había que darle flores amarillas.',
-      'Cada que usted sonríe es una alegría más en la vida de la gente que la rodea.',
-      'De hecho, usted es de las personas que valen todo para tener cerca.',
-      'Gracias a Dios pude conocerla mejor y me equivoqué con lo que dije que parecía que no le caía bien la gente.',
-      'Me sorprende cada día más lo buena que es con las personas que tiene cerca.',
-      'Todas los días su playlist me motiva en el gym, gracias por eso.',
-      'Gracias por ser como es, porfa nunca cambie.',
-      'Todos los días se le extraña, un poco más que ayer pero un poco menos que mañana.',
-      'Se merece lo mejor siempre, por lo magnífica persona que es usted joven.'
+      "Su chat es de las mejores cosas que alegran el dia.",
+      "Que estas flores iluminen su día joven.",
+      "Un detalle amarillo para un corazón de oro.",
+      "Cada clic es un pensamiento positivo para ti.",
+      "Usted hace que el mundo florezca.",
+      "Cuidaré este jardín tanto como nuestra amistad.",
+      "Brillas con luz propia.",
+      "Tu sonrisa es el sol de estas flores.",
+      "Eres magia en un mundo ordinario.",
+      "Florecer requiere tiempo, y usted es hermosa.",
+      "Gracias por ser usted, especial, atenta y inteligente.",
+      "Tu luz es capaz de iluminar el día más oscuro.",
+      "Hoy es un buen día para ser feliz.",
+      "Nunca dejes de brillar, el mundo te necesita.",
+      "Eres más fuerte de lo que crees.",
+      "La vida es mejor con personas como usted cerca.",
+      "Un pequeño detalle para un gran corazón.",
+      "Usted es pura inspiración.",
+      "Cada pétalo guarda un deseo para ti.",
+      "Donde pones el ojo, pones alegría.",
+      "Eres la razón de muchas sonrisas hoy.",
+      "Sigue creciendo, el cielo es el límite.",
+      "Tu energía es contagiosa y brillante.",
+      "Eres única, inteligente y atenta y eso es tu superpoder.",
+      "Que nunca te falten flores en el camino.",
+      "Eres paz en medio de cualquier tormenta.",
+      "Mereces todo lo bueno que te pase.",
+      "Gracias por existir y ser tan especial.",
+      "Tu amistad es un tesoro invaluable.",
+      "Eres el girasol más lindo de este jardín.",
+      "Que la felicidad te encuentre hoy y siempre.",
+      "Un jardín eterno para una persona inolvidable.",
+      "Que la música de hoy sea tu risa.",
+      "Brillas, Karina, con una fuerza que solo es reconocible en muy pocas personas.",
+      "Su gusto musical es increible y me gustaria seguir conociendolo.",
+      "Es atenta con sus seres queridos y eso es un don que vino del cielo",
+      "Dios se encargo de darle las mejores cualidades a las mejores personas y usted fue una de ellas",
+      "Espero que no se moleste, pero pues habia que darle flores amarilas",
+      "Cada que usted sonrie es una alegria mas en la vida de la gente que la rodea",
+      "De hecho, usted es de las personas que valen todo para tener cerca",
+      "Gracias a Dios pude conocerla mejor y me equivoque con lo que dije que parecia que no le caia bien la gente",
+      "Me sorprende cada dia mas lo buena que es con las personas que tiene cerca.",
+      "Todas los dias su playlist me motiva en el gym, gracias por eso",
+      "Gracias por ser como es, porfa nunca cambie.",
+      "Todos los dias se le extrana, un poco mas que ayer pero un poco menos que manana",
+      "Se merece lo mejor siempre, por lo magnifica persona que es usted joven.",
     ];
 
     class Flower {
@@ -477,25 +475,18 @@
     }
 
     function spawnMemoryBubble(x, y) {
-      const amount = 2 + Math.floor(Math.random() * 3);
+      const bubble = document.createElement('div');
+      bubble.className = 'memory-bubble';
+      bubble.style.left = `${x}px`;
+      bubble.style.top = `${y}px`;
 
-      for (let i = 0; i < amount; i++) {
-        const bubble = document.createElement('div');
-        bubble.className = 'memory-bubble';
-        bubble.style.left = `${x}px`;
-        bubble.style.top = `${y}px`;
-        bubble.style.setProperty('--dx', `${(Math.random() - 0.5) * 110}px`);
-        bubble.style.setProperty('--dy', `${Math.random() * 70 + 22}px`);
-        bubble.style.setProperty('--rot', `${(Math.random() - 0.5) * 30}deg`);
+      const img = document.createElement('img');
+      img.src = randomImage();
+      img.alt = 'recuerdo floral';
+      bubble.appendChild(img);
+      bubbleLayer.appendChild(bubble);
 
-        const img = document.createElement('img');
-        img.src = randomImage();
-        img.alt = 'recuerdo floral';
-        bubble.appendChild(img);
-        bubbleLayer.appendChild(bubble);
-
-        setTimeout(() => bubble.remove(), 5200);
-      }
+      setTimeout(() => bubble.remove(), 4600);
     }
 
     function plantFlower(x) {
@@ -514,7 +505,7 @@
       }
 
       if (clickCount % bubbleTriggerEvery === 0) {
-        spawnMemoryBubble(x, height - 120);
+        spawnMemoryBubble(x, height - 40);
       }
     }
 
